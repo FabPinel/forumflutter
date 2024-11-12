@@ -1,7 +1,62 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ArticleNimeScreen extends StatelessWidget {
+class ArticleNimeScreen extends StatefulWidget {
   const ArticleNimeScreen({Key? key}) : super(key: key);
+
+  @override
+  _ArticleNimeScreenState createState() => _ArticleNimeScreenState();
+}
+
+class _ArticleNimeScreenState extends State<ArticleNimeScreen> {
+  TextEditingController _commentController = TextEditingController();
+  TextEditingController _pseudoController = TextEditingController();
+  List<Map<String, String>> _comments = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadComments();
+  }
+
+  void _loadComments() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      List<String>? savedComments = prefs.getStringList('article_comments');
+      if (savedComments != null) {
+        _comments = savedComments.map((commentData) {
+          List<String> parts = commentData.split('||');
+          return {
+            'pseudo': parts[0],
+            'comment': parts[1],
+          };
+        }).toList();
+      }
+    });
+  }
+
+  void _saveComment() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    String pseudo =
+        _pseudoController.text.isEmpty ? "Anonyme" : _pseudoController.text;
+    String comment = _commentController.text;
+
+    if (comment.isNotEmpty) {
+      setState(() {
+        _comments.add({'pseudo': pseudo, 'comment': comment});
+      });
+
+      List<String> commentsToSave = _comments
+          .map((commentData) =>
+              '${commentData['pseudo']}||${commentData['comment']}')
+          .toList();
+      await prefs.setStringList('article_comments', commentsToSave);
+
+      _commentController.clear();
+      _pseudoController.clear();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,16 +100,81 @@ class ArticleNimeScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
-            // Image sous le texte
             Center(
               child: Image.asset(
                 'assets/images/nimes_tournament.jpg',
                 fit: BoxFit.cover,
               ),
             ),
+
+            const SizedBox(height: 20),
+
+            // Titre pour les commentaires
+            const Text(
+              "Fil de Discussion:",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+
+            // Afficher les commentaires sous forme de liste
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: _comments.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(_comments[index]['pseudo']!),
+                  subtitle: Text(_comments[index]['comment']!),
+                  leading: Icon(Icons.comment),
+                );
+              },
+            ),
+
+            const SizedBox(height: 16),
+
+            // Champ pour ajouter un pseudo
+            const Text(
+              "Ajouter un pseudo:",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            TextField(
+              controller: _pseudoController,
+              decoration: const InputDecoration(
+                hintText: "Entrez votre pseudo...",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 16),
+
+            // Champ pour ajouter un commentaire
+            const Text(
+              "Ajouter un commentaire:",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            TextField(
+              controller: _commentController,
+              decoration: const InputDecoration(
+                hintText: "Écrivez votre commentaire ici...",
+                border: OutlineInputBorder(),
+              ),
+              maxLines: 4,
+            ),
+            const SizedBox(height: 16),
+
+            // Bouton pour sauvegarder le commentaire et le pseudo
+            ElevatedButton(
+              onPressed: _saveComment,
+              child: const Text("Sauvegarder le commentaire"),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _commentController.dispose();
+    _pseudoController.dispose();
+    super.dispose();
   }
 }
