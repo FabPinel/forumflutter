@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:forum/screens/pse_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:forum/screens/article_nime_screen.dart';
 
@@ -130,7 +131,6 @@ class ForumHomePage extends StatelessWidget {
                         "https://www.tirarcpaca.fr/media/uploaded/sites/11475/document/67326431bd309_Calendrierdu11112024au31032025Concoursetarbitresau111120243.pdf");
                   } else if (item ==
                       "L'Arc Club de Nîmes - Tournoi International 2025") {
-                    // Navigation vers la page de l'article
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -146,6 +146,12 @@ class ForumHomePage extends StatelessWidget {
                       "Chateaux-Arnoux st Auban - 20 octobre 2024") {
                     _openPDF(
                         "https://www.tirarcpaca.fr/media/uploaded/sites/11475/kcupload/files/CHATEAU-ARNOUX%2019%20%26%2020%20octobre%202024.pdf");
+                  } else if (item == "Arc à poulie PSE Lazzer 2024") {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const PseScreen()),
+                    );
                   }
                 },
               ),

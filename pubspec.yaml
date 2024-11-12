@@ -22,3 +22,4 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/nimes_tournament.jpg
+    - assets/images/pse.jpg
