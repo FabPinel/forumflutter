@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:forum/screens/X23_screen.dart';
 import 'package:forum/screens/pse_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:forum/screens/article_nime_screen.dart';
@@ -151,6 +152,12 @@ class ForumHomePage extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => const PseScreen()),
+                    );
+                  } else if (item == "Flèches en aluminium - X23") {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const X23Screen()),
                     );
                   }
                 },
