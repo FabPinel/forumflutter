@@ -32,14 +32,24 @@ class ForumHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        title: const Text('Forum de Tir à l\'Arc'),
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Theme.of(context).colorScheme.primary,
+      //   title: const Text('Forum de Tir à l\'Arc'),
+      // ),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
           _buildForumHeader(),
+          const SizedBox(height: 20),
+          _buildForumSection(
+            context,
+            title: "Discussions récentes",
+            items: [
+              "Conseils pour améliorer sa précision",
+              "Quel équipement pour débuter ?"
+            ],
+            icon: Icons.chat_bubble,
+          ),
           const SizedBox(height: 20),
           _buildForumSection(
             context,
@@ -71,16 +81,6 @@ class ForumHomePage extends StatelessWidget {
             ],
             icon: Icons.architecture,
           ),
-          const SizedBox(height: 20),
-          _buildForumSection(
-            context,
-            title: "Discussions récentes",
-            items: [
-              "Conseils pour améliorer sa précision",
-              "Quel est le meilleur équipement pour débuter ?"
-            ],
-            icon: Icons.chat_bubble,
-          ),
         ],
       ),
     );
@@ -93,15 +93,24 @@ class ForumHomePage extends StatelessWidget {
         color: Colors.green.shade100,
         borderRadius: BorderRadius.circular(10),
       ),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          // Ajout du logo
+          Center(
+            child: Image.asset(
+              'assets/images/fta.png',
+              width: 100, // Taille du logo, ajustez si nécessaire
+              height: 100,
+            ),
+          ),
+          const SizedBox(height: 16),
+          const Text(
             'Bienvenue sur le Forum de Tir à l\'Arc!',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 8),
-          Text(
+          const SizedBox(height: 8),
+          const Text(
             'Retrouvez ici les derniers résultats, découvrez les nouveautés en équipements, et discutez avec d\'autres passionnés.',
             style: TextStyle(fontSize: 16),
           ),
@@ -167,8 +176,7 @@ class ForumHomePage extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) => const ArticlePrecisionScreen()),
                     );
-                  } else if (item ==
-                      "Quel est le meilleur équipement pour débuter ?") {
+                  } else if (item == "Quel équipement pour débuter ?") {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
