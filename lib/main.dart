@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forum/screens/X23_screen.dart';
 import 'package:forum/screens/article_precision_screen.dart';
+import 'package:forum/screens/debuter_screen.dart';
 import 'package:forum/screens/pse_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:forum/screens/article_nime_screen.dart';
@@ -165,6 +166,13 @@ class ForumHomePage extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => const ArticlePrecisionScreen()),
+                    );
+                  } else if (item ==
+                      "Quel est le meilleur équipement pour débuter ?") {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const DebuterScreen()),
                     );
                   }
                 },

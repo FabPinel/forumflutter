@@ -12,6 +12,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   url_launcher: ^6.1.9
   shared_preferences: ^2.1.0
+  youtube_player_flutter: ^8.1.0
 
 dev_dependencies:
   flutter_test:
@@ -26,3 +27,4 @@ flutter:
     - assets/images/X23.webp
     - assets/images/precision1.jpg
     - assets/images/precision2.jpg
+    - assets/images/extreme.jpg
