@@ -51,9 +51,9 @@ class ForumHomePage extends StatelessWidget {
             context,
             title: "Derniers résultats",
             items: [
-              "Championnat régional - 28 octobre 2024",
-              "Compétition nationale - 15 octobre 2024",
-              "Open de Paris - 5 septembre 2024"
+              "Chateaurenard - 9 & 10 novembre 2024",
+              "Carpentras - 2 & 3 novembre 2024",
+              "Chateaux-Arnoux st Auban - 20 octobre 2024"
             ],
             icon: Icons.emoji_events,
           ),
@@ -136,8 +136,17 @@ class ForumHomePage extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) => const ArticleNimeScreen()),
                     );
+                  } else if (item == "Chateaurenard - 9 & 10 novembre 2024") {
+                    _openPDF(
+                        "https://www.tirarcpaca.fr/media/uploaded/sites/11475/document/6732fbc4c845a_rsultatsChateaurenard910112024.pdf");
+                  } else if (item == "Carpentras - 2 & 3 novembre 2024") {
+                    _openPDF(
+                        "https://www.tirarcpaca.fr/media/uploaded/sites/11475/kcupload/files/CARPENTRAS%2002%20%26%2003%20novembre%202024.pdf");
+                  } else if (item ==
+                      "Chateaux-Arnoux st Auban - 20 octobre 2024") {
+                    _openPDF(
+                        "https://www.tirarcpaca.fr/media/uploaded/sites/11475/kcupload/files/CHATEAU-ARNOUX%2019%20%26%2020%20octobre%202024.pdf");
                   }
-                  // Ajoutez d'autres actions pour les autres éléments si nécessaire
                 },
               ),
             )),
